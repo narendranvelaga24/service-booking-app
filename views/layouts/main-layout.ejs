@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : 'Service Booking App' %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Add any other global head elements here -->
+</head>
+<body class="dark-mode">
+    <%- include('../partials/header') %>
+
+    <main class="container">
+        <% if (typeof flashMessages !== 'undefined' && flashMessages) { %>
+            <% Object.keys(flashMessages).forEach(type => { %>
+                <% flashMessages[type].forEach(message => { %>
+                    <div class="alert alert-<%= type %>">
+                        <%= message %>
+                    </div>
+                <% }); %>
+            <% }); %>
+        <% } %>
+
+        <%- include('../' + view) %>
+    </main>
+
+    <%- include('../partials/footer') %>
+
+    <script src="/js/main.js"></script>
+    <!-- Add page-specific scripts here if needed, or include them in the specific view files -->
+</body>
+</html>

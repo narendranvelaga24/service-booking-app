@@ -1,0 +1,175 @@
+<section id="my-bookings-page">
+    <h2>My Bookings</h2>
+
+    <% if (!bookings || bookings.length === 0) { %>
+        <p>You have no bookings yet.</p>
+        <a href="/services" class="btn">Book a Service Now</a>
+    <% } else { %>
+        <div class="bookings-list">
+            <% bookings.forEach((booking, index) => { %>
+                <article class="booking-summary-card" data-booking-id="<%= booking.id %>">
+                    <h3>Booking #<%= index + 1 %></h3>
+                    <p><strong>Date:</strong> 
+                        <% 
+                        let d_my = new Date(booking.booking_date);
+                        if (String(booking.booking_date).length <= 10 && String(booking.booking_date).includes('-')) {
+                            const parts_my = String(booking.booking_date).split('-');
+                            d_my = new Date(Date.UTC(parseInt(parts_my[0]), parseInt(parts_my[1]) - 1, parseInt(parts_my[2])));
+                        }
+                        %>
+                        <%= d_my.getUTCDate() %> <%= d_my.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' }) %>, <%= d_my.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' }) %>
+                    </p>
+                    <p><strong>Time:</strong> <%= booking.booking_time %></p>
+                    <p><strong>Status:</strong> <span class="status-<%= booking.status.toLowerCase() %>"><%= booking.status.charAt(0).toUpperCase() + booking.status.slice(1) %></span></p>
+                    <p><strong>Total Price:</strong> ₹<%= booking.total_price.toFixed(2) %></p>
+                    <p><strong>Services:</strong> <%= booking.services_booked || 'Details unavailable' %></p>
+                    <p><em>Booked on: <%= new Date(booking.created_at).toLocaleString() %></em></p>
+                    <a href="/bookings/<%= booking.id %>" class="btn btn-small">View Details</a>
+                    <% if (booking.status === 'pending' || booking.status === 'confirmed') { %>
+                        <button class="btn btn-small btn-danger cancel-booking-btn" data-booking-id="<%= booking.id %>" style="margin-left: 10px;">Cancel Booking</button>
+                    <% } %>
+                    <% if (booking.status === 'cancelled') { %>
+                        <button class="btn btn-small btn-secondary remove-booking-btn" data-booking-id="<%= booking.id %>" style="margin-left: 10px;">Remove</button>
+                    <% } %>
+                </article>
+            <% }); %>
+        </div>
+    <% } %>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const bookingsList = document.querySelector('.bookings-list');
+
+        if (bookingsList) {
+            bookingsList.addEventListener('click', function(event) {
+                // Handle Cancel Button Click
+                if (event.target && event.target.classList.contains('cancel-booking-btn')) {
+                    const bookingId = event.target.getAttribute('data-booking-id');
+                    // Removed confirm check
+                    fetch('/bookings/' + bookingId + '/cancel', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ bookingId: bookingId })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Update status text on the page without full reload
+                            const bookingCard = event.target.closest('.booking-summary-card');
+                            if (bookingCard) {
+                                const statusSpan = bookingCard.querySelector('.status-pending, .status-confirmed');
+                                if (statusSpan) {
+                                    statusSpan.textContent = 'Cancelled';
+                                    statusSpan.className = 'status-cancelled'; // Update class for styling
+                                }
+                                // Remove the cancel button after cancellation
+                                event.target.remove();
+
+                                // Dynamically add the remove button
+                                const removeBtn = document.createElement('button');
+                                removeBtn.className = 'btn btn-small btn-secondary remove-booking-btn';
+                                removeBtn.setAttribute('data-booking-id', bookingId);
+                                removeBtn.style.marginLeft = '10px';
+                                removeBtn.textContent = 'Remove';
+                                bookingCard.appendChild(removeBtn);
+                            }
+                            // Removed alert
+                        } else {
+                            alert('Failed to cancel booking: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while cancelling the booking.');
+                    });
+                }
+
+                // Handle Remove Button Click
+                if (event.target && event.target.classList.contains('remove-booking-btn')) {
+                    const bookingId = event.target.getAttribute('data-booking-id');
+                    // Removed confirm check
+                    fetch('/bookings/' + bookingId, { // Use the delete route
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ bookingId: bookingId }) // Send ID in body if needed by backend
+                    })
+                    .then(response => {
+                        if (response.ok) { // Check for successful response (e.g., 200 OK)
+                            return response.json(); // Parse JSON response
+                        }
+                        // If response is not OK, throw an error with status
+                        return response.json().then(err => { throw new Error(err.message || `HTTP error! status: ${response.status}`); });
+                    })
+                    .then(data => {
+                        if (data.success) {
+                            // Remove the booking card from the DOM
+                            const bookingCard = event.target.closest('.booking-summary-card');
+                            if (bookingCard) {
+                                bookingCard.remove();
+                                // Renumber the remaining booking cards
+                                renumberBookings();
+                            }
+                            // Removed alert
+                        } else {
+                            alert('Failed to remove booking: ' + data.message);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error removing booking:', error);
+                        alert('An error occurred while removing the booking: ' + error.message);
+                    });
+                }
+            });
+        }
+
+        // Function to renumber bookings after removal
+        function renumberBookings() {
+            const bookingCards = bookingsList.querySelectorAll('.booking-summary-card');
+            bookingCards.forEach((card, index) => {
+                const bookingNumberElement = card.querySelector('h3');
+                if (bookingNumberElement) {
+                    bookingNumberElement.textContent = `Booking #${index + 1}`;
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    .bookings-list {
+        display: grid;
+        grid-template-columns: 1fr; /* Single column for now, can be changed */
+        gap: 20px;
+    }
+    .booking-summary-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #2e2e2e;
+    }
+    .booking-summary-card h3 {
+        margin-top: 0;
+    }
+    .booking-summary-card p {
+        margin: 8px 0;
+    }
+    .status-pending { color: #ffc107; font-weight: bold; }
+    .status-confirmed { color: #28a745; font-weight: bold; }
+    .status-completed { color: #17a2b8; font-weight: bold; }
+    .status-cancelled { color: #dc3545; font-weight: bold; }
+    .btn-small {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+    .remove-booking-btn { /* Style for the new remove button */
+        background-color: #6c757d; /* Muted color */
+    }
+    .remove-booking-btn:hover {
+        background-color: #5a6268; /* Darker muted color */
+    }
+</style>

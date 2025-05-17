@@ -1,0 +1,54 @@
+<section id="hero" class="page-transition-enter">
+    <h2>Keeping Your Ride Smooth & Safe</h2>
+    <p>Your one-stop shop for all vehicle maintenance and repair needs. Book your service today!</p>
+    <% if (!currentUser) { %>
+        <a href="/auth/register" class="btn">Get Started - Register Now</a>
+    <% } else { %>
+        <a href="/services" class="btn">Book a Service</a>
+    <% } %>
+</section>
+
+<section id="introduction">
+    <!-- Content from motor-vehicle-maintenance-website/public/index.html introduction -->
+    <h2>Welcome to Your AutoCare Center!</h2>
+    <p>Regular vehicle maintenance is key to ensuring your car runs efficiently, safely, and lasts longer. At Your AutoCare Center, we are committed to providing top-quality services to keep your vehicle in peak condition. From routine oil changes to complex engine diagnostics, our certified technicians are here to help.</p>
+    <p>Explore our services, get valuable maintenance tips, and learn more about why we are the preferred choice for vehicle owners.</p>
+</section>
+
+<section id="featured-services">
+    <!-- Content from motor-vehicle-maintenance-website/public/index.html featured-services -->
+    <h2>Featured Services</h2>
+    <div class="service-highlights services-preview-grid"> <!-- Added services-preview-grid for potential styling -->
+        <article class="service-preview-card" style="background-image: url('/images/pricing-bg.jpg');">
+            <h3>Oil Changes</h3>
+            <p>Keep your engine running smoothly with our premium oil change services.</p>
+            <a href="/services" class="btn btn-small">View Oil Change Services</a>
+        </article>
+        <article class="service-preview-card" style="background-image: url('/images/support-bg.jpg');">
+            <h3>Brake Repairs</h3>
+            <p>Ensure your safety with our expert brake inspection and repair.</p>
+            <a href="/services" class="btn btn-small">View Brake Services</a>
+        </article>
+        <article class="service-preview-card" style="background-image: url('/images/technician-bg.jpg');">
+            <h3>Tire Services</h3>
+            <p>From rotations to new tires, we've got you covered.</p>
+            <a href="/services" class="btn btn-small">View Tire Services</a>
+        </article>
+    </div>
+    <div class="featured-services-button-container" style="text-align: center; margin-top: 20px;">
+        <a href="/services" class="btn">View All Services & Book Now</a>
+    </div>
+</section>
+
+<section id="how-it-works">
+    <h3>Easy Booking Process</h3>
+    <ol>
+        <li>Browse our wide range of automotive services.</li>
+        <li>Select the services you need.</li>
+        <li>Choose a convenient date and time using our online calendar.</li>
+        <li>Confirm your booking and receive instant confirmation!</li>
+    </ol>
+    <% if (currentUser) { %>
+        <p style="text-align:center; margin-top:15px;"><a href="/bookings/my-bookings" class="btn btn-secondary">View Your Bookings</a></p>
+    <% } %>
+</section>

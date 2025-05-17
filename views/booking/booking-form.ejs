@@ -1,0 +1,136 @@
+<section id="booking-form-page">
+    <h2>Confirm Your Booking</h2>
+
+    <div class="selected-services-summary">
+        <h3>Selected Services:</h3>
+        <ul>
+            <% selectedServices.forEach(service => { %>
+                <li>
+                    <strong><%= service.name %></strong> - ₹<%= service.price.toFixed(2) %> 
+                    (Est. <%= service.estimated_time_minutes %> mins)
+                </li>
+            <% }); %>
+        </ul>
+        <p><strong>Total Estimated Time:</strong> <%= totalEstimatedTime %> minutes</p>
+        <p><strong>Total Price:</strong> ₹<%= totalPrice %></p>
+    </div>
+
+    <form action="/bookings" method="POST" id="bookingForm">
+        <% selectedServices.forEach(service => { %>
+            <input type="hidden" name="service_ids[]" value="<%= service.id %>">
+        <% }); %>
+
+        <div class="form-group">
+            <label for="booking_date">Preferred Date:</label>
+            <input type="date" id="booking_date" name="booking_date" 
+                   value="<%= typeof formData !== 'undefined' && formData.booking_date ? formData.booking_date : new Date().toISOString().split('T')[0] %>" 
+                   min="<%= new Date().toISOString().split('T')[0] %>" required>
+            <% if (typeof errors !== 'undefined' && errors.booking_date) { %><small class="error-text"><%= errors.booking_date %></small><% } %>
+        </div>
+
+        <div class="form-group">
+            <label for="booking_time">Preferred Time Slot:</label>
+            <select id="booking_time" name="booking_time" required>
+                <!-- Basic time slots; this can be made dynamic based on availability later -->
+                <option value="09:00 AM" <%= (typeof formData !== 'undefined' && formData.booking_time === '09:00 AM') ? 'selected' : '' %>>09:00 AM - 10:00 AM</option>
+                <option value="10:00 AM" <%= (typeof formData !== 'undefined' && formData.booking_time === '10:00 AM') ? 'selected' : '' %>>10:00 AM - 11:00 AM</option>
+                <option value="11:00 AM" <%= (typeof formData !== 'undefined' && formData.booking_time === '11:00 AM') ? 'selected' : '' %>>11:00 AM - 12:00 PM</option>
+                <option value="01:00 PM" <%= (typeof formData !== 'undefined' && formData.booking_time === '01:00 PM') ? 'selected' : '' %>>01:00 PM - 02:00 PM</option>
+                <option value="02:00 PM" <%= (typeof formData !== 'undefined' && formData.booking_time === '02:00 PM') ? 'selected' : '' %>>02:00 PM - 03:00 PM</option>
+                <option value="03:00 PM" <%= (typeof formData !== 'undefined' && formData.booking_time === '03:00 PM') ? 'selected' : '' %>>03:00 PM - 04:00 PM</option>
+                <option value="04:00 PM" <%= (typeof formData !== 'undefined' && formData.booking_time === '04:00 PM') ? 'selected' : '' %>>04:00 PM - 05:00 PM</option>
+            </select>
+            <% if (typeof errors !== 'undefined' && errors.booking_time) { %><small class="error-text"><%= errors.booking_time %></small><% } %>
+        </div>
+
+        <% if (requiresMobileAddress) { %>
+            <div class="form-group" id="mobile_address_group">
+                <label for="mobile_service_address">Service Address (for mobile services):</label>
+                <textarea id="mobile_service_address" name="mobile_service_address" rows="3"><%= typeof formData !== 'undefined' ? formData.mobile_service_address : '' %></textarea>
+                <small>Please provide the full address where the mobile service should be performed.</small>
+            </div>
+        <% } %>
+
+        <div class="form-group">
+            <label for="notes">Additional Notes (Optional):</label>
+            <textarea id="notes" name="notes" rows="4"><%= typeof formData !== 'undefined' ? formData.notes : '' %></textarea>
+        </div>
+        
+        <% if (typeof errors !== 'undefined' && errors.general) { %>
+            <div class="alert alert-danger"><%= errors.general %></div>
+        <% } %>
+
+        <button type="submit" class="btn btn-primary btn-large">Confirm Booking</button>
+        <a href="/services" class="btn btn-secondary" style="margin-left: 10px;">Change Services</a>
+    </form>
+</section>
+
+<style>
+    #booking-form-page h2 {
+        margin-bottom: 25px;
+        text-align: center;
+    }
+    .selected-services-summary {
+        background-color: var(--color-light);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        margin-bottom: 30px;
+        border: 1px solid #dee2e6;
+    }
+    .selected-services-summary h3 {
+        margin-top: 0;
+        color: var(--color-secondary);
+        font-size: 1.3rem;
+        border-bottom: 1px solid #ced4da;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    .selected-services-summary ul {
+        list-style-type: none; /* Changed from disc */
+        padding-left: 0;
+    }
+    .selected-services-summary li {
+        margin-bottom: 8px;
+        padding: 8px 0;
+        border-bottom: 1px dashed #e0e0e0;
+        font-size: 1rem;
+    }
+    .selected-services-summary li:last-child {
+        border-bottom: none;
+    }
+    .selected-services-summary li strong {
+        color: var(--color-primary);
+    }
+    .selected-services-summary p {
+        font-size: 1.1rem;
+        font-weight: 600; /* From Open Sans */
+        margin-top: 15px;
+    }
+    .selected-services-summary p strong {
+        color: var(--color-secondary);
+    }
+
+    #bookingForm .form-group {
+        margin-bottom: 1.5rem; /* More space between form groups */
+    }
+    #bookingForm label {
+        font-weight: 600; /* From Open Sans */
+        color: var(--color-secondary);
+    }
+    #bookingForm .btn-primary { /* Style the main CTA button */
+        font-size: 1.1rem;
+        padding: 0.8rem 2rem;
+    }
+    #bookingForm .btn-secondary {
+        background-color: var(--color-text-muted);
+    }
+    #bookingForm .btn-secondary:hover {
+        background-color: var(--color-secondary);
+    }
+    #mobile_address_group small { /* Specific small text styling */
+        display: block;
+        margin-top: 5px;
+        font-size: 0.85em;
+        color: var(--color-text-muted);
+    }
+</style>

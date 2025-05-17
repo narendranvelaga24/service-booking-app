@@ -1,0 +1,38 @@
+<section id="login-page">
+    <h2>Login to Your Account</h2>
+
+    <% if (typeof pageMessages !== 'undefined' && pageMessages) { %>
+        <% Object.keys(pageMessages).forEach(type => { %>
+            <% pageMessages[type].forEach(message => { %>
+                <div class="alert alert-<%= type %>" style="margin-bottom: 15px;">
+                    <%= message %>
+                </div>
+            <% }); %>
+        <% }); %>
+    <% } %>
+
+    <form action="/auth/login" method="POST" id="loginForm">
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" value="<%= typeof formData !== 'undefined' ? formData.email : '' %>" required>
+            <% if (typeof errors !== 'undefined' && errors.email) { %><small class="error-text"><%= errors.email %></small><% } %>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <% if (typeof errors !== 'undefined' && errors.password) { %><small class="error-text"><%= errors.password %></small><% } %>
+        </div>
+        
+        <% if (typeof errors !== 'undefined' && errors.general) { %>
+            <div class="alert alert-danger"><%= errors.general %></div>
+        <% } %>
+
+        <button type="submit" class="btn">Login</button>
+    </form>
+    <p style="margin-top: 1rem;">
+        <a href="/auth/forgot-password">Forgot your password?</a>
+    </p>
+    <p style="margin-top: 1rem;">
+        Don't have an account? <a href="/auth/register">Register here</a>.
+    </p>
+</section>

@@ -1,0 +1,1489 @@
+:root {
+    --font-primary: 'Open Sans', sans-serif;
+    --font-secondary: 'Montserrat', sans-serif;
+
+    /* Dark Mode Color Palette */
+    --color-primary: #007BFF; /* Keep primary for accents */
+    --color-primary-dark: #0056b3;
+    --color-secondary: #BB86FC; /* A contrasting color for secondary elements */
+
+    --color-background: #121212; /* Deep dark background */
+    --color-section-bg: #1e1e1e; /* Slightly lighter dark for sections/cards */
+    --color-body-bg: #121212;   /* Same as background */
+
+    --color-text: #E0E0E0;      /* Light grey for main text */
+    --color-text-muted: #B0B0B0; /* Muted grey text */
+    --color-heading: #FFFFFF;   /* White for headings */
+
+    --color-success: #03DAC6; /* Teal for success */
+    --color-danger: #CF6679;  /* Red for danger */
+    --color-warning: #FFDA6E;  /* Yellow for warning */
+    --color-info: #2196F3;    /* Blue for info */
+
+    --border-radius: 0.3rem;
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Darker shadows */
+    --box-shadow-lg: 0 5px 15px rgba(0,0,0,.5); /* Darker large shadows */
+
+    --glow-effect: 0 0 8px rgba(187, 134, 252, 0.6); /* Subtle glow using secondary color */
+}
+
+/* Global Styles */
+body {
+    font-family: var(--font-primary);
+    font-weight: 400;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-body-bg);
+    color: var(--color-text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    width: 85%; /* Slightly wider */
+    max-width: 1200px; /* Max width for large screens */
+    margin: auto;
+    overflow: hidden;
+    padding: 20px; /* Default padding */
+    flex-grow: 1;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-secondary);
+    font-weight: 700;
+    color: var(--color-secondary);
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+}
+h1 { font-size: 2.25rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.2rem; }
+
+
+/* Header */
+header {
+    background: var(--color-secondary);
+    color: #fff;
+    padding: 1rem 0;
+    border-bottom: var(--color-primary) 4px solid;
+    box-shadow: var(--box-shadow);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px; 
+}
+
+header #logo a {
+    color: #fff;
+    font-size: 1.75rem; /* Slightly larger */
+    font-weight: 700; /* From Montserrat */
+    text-decoration: none;
+}
+header #logo a:hover {
+    text-decoration: none;
+}
+
+
+header nav ul {
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li {
+    margin-left: 25px; /* Increased spacing */
+}
+
+header nav ul li a {
+    color: #fff;
+    font-weight: 600; /* From Open Sans */
+    font-size: 1rem;
+    text-decoration: none;
+    padding-bottom: 5px; /* For border effect on hover */
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+    text-decoration: none;
+}
+
+.nav-logout-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    padding: 0;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+.nav-logout-btn:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+
+/* Main Content */
+main {
+    background-color: var(--color-background);
+    padding: 30px 0; /* Increased vertical padding */
+    border-radius: var(--border-radius); /* Rounded corners for main content area if desired */
+    /* box-shadow: var(--box-shadow); */ /* Optional shadow for main content block */
+}
+.container { /* Ensure main container within main also has some padding */
+    padding: 0 20px 20px 20px; /* Add bottom padding */
+}
+
+
+/* Footer */
+footer {
+    background: var(--color-secondary);
+    color: var(--color-light); /* Lighter text for footer */
+    text-align: center;
+    padding: 1.5rem 0; /* Increased padding */
+    margin-top: auto;
+    font-size: 0.9rem;
+    border-top: var(--color-primary) 4px solid; /* Add purple line at the top */
+}
+footer .container {
+    padding: 0 20px; 
+}
+
+footer a {
+    color: var(--color-primary);
+}
+footer a:hover {
+    color: #fff;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ced4da; /* Softer border */
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--color-primary);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn {
+    display: inline-block;
+    font-family: var(--font-secondary); /* Button text with secondary font */
+    font-weight: 700;
+    background: var(--color-primary);
+    color: #fff;
+    padding: 0.6rem 1.2rem; /* Adjusted padding */
+    border: none;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    text-align: center;
+    text-transform: uppercase; /* Uppercase button text */
+    letter-spacing: 0.5px;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    box-shadow: var(--box-shadow);
+}
+
+.btn:hover {
+    background: var(--color-primary-dark);
+    text-decoration: none; /* Remove underline on hover for buttons */
+    transform: translateY(-1px); /* Slight lift on hover */
+}
+.btn:active {
+    transform: translateY(0px);
+}
+
+.btn-danger {
+    background: var(--color-danger);
+}
+.btn-danger:hover {
+    background: #c82333; /* Darker red */
+}
+.btn-success {
+    background: var(--color-success);
+}
+.btn-success:hover {
+    background: #1e7e34; /* Darker green */
+}
+.btn-secondary {
+    background-color: var(--color-text-muted);
+    color: #fff;
+}
+.btn-secondary:hover {
+    background-color: var(--color-secondary);
+}
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+}
+.btn-large {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+}
+
+
+/* Alerts / Flash Messages */
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-danger, .alert-error { 
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+.alert { /* General alert styling */
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: var(--border-radius);
+}
+
+/* Error Page Specifics */
+.error-page-container {
+    text-align: center;
+    padding: 40px 20px;
+}
+.error-page-container h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+.error-page-container p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+.error-page-container pre {
+    text-align: left;
+    background-color: #eee;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+}
+
+
+/* Responsive Design (Basic) */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    header nav ul {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+    }
+    header nav ul li {
+        margin-left: 0;
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    .container {
+        width: 95%;
+    }
+}
+
+/* Accessibility */
+a:focus, button:focus, input:focus, textarea:focus, select:focus, summary:focus {
+    outline: 2px solid #005A9C;
+    outline-offset: 2px;
+}
+body:not(.user-is-tabbing) a:focus,
+body:not(.user-is-tabbing) button:focus,
+body:not(.user-is-tabbing) input:focus,
+body:not(.user-is-tabbing) textarea:focus,
+body:not(.user-is-tabbing) select:focus,
+body:not(.user-is-tabbing) summary:focus {
+    outline: none;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    --color-primary: #BB86FC; /* Light purple for primary in dark mode */
+    --color-primary-dark: #3700B3; /* Darker purple */
+    --color-secondary: #03DAC6; /* Teal for secondary in dark mode */
+    --color-light: #1e1e1e;    /* Dark grey for light elements */
+    --color-background: #121212; /* Deep dark background */
+    --color-body-bg: #1e1e1e;   /* Slightly lighter dark grey for body */
+    --color-text: #e0e0e0;      /* Light grey for text */
+    --color-text-muted: #a0a0a0; /* Muted grey text */
+    --color-success: #00C853; /* Green */
+    --color-danger: #FF5252; /* Red */
+    --color-warning: #FFD600; /* Yellow */
+    --color-info: #29B6F6; /* Light blue */
+
+    --box-shadow: 0 0.125rem 0.25rem rgba(255, 255, 255, 0.075); /* Lighter shadow for dark mode */
+    --box-shadow-lg: 0 1rem 3rem rgba(255,255,255,.175); /* Lighter large shadow */
+
+    background-color: var(--color-background); /* Use the deep dark background color */
+    color: var(--color-text);
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+body.dark-mode a {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+
+body.dark-mode a:hover {
+    color: var(--color-primary-dark);
+}
+
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: var(--color-secondary);
+    transition: color 0.3s ease;
+}
+
+body.dark-mode header {
+    background: var(--color-light); /* Use light dark mode color for header */
+    color: var(--color-text);
+    border-bottom-color: var(--color-primary);
+    box-shadow: var(--box-shadow);
+    transition: background 0.3s ease, color 0.3s ease, border-bottom-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode header #logo a {
+    color: var(--color-text);
+    transition: color 0.3s ease;
+}
+
+body.dark-mode header nav ul li a {
+    color: var(--color-text);
+    border-bottom-color: transparent;
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+body.dark-mode header nav ul li a:hover,
+body.dark-mode header nav ul li a.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+body.dark-mode .nav-logout-btn {
+    color: var(--color-text);
+    transition: color 0.3s ease, border-bottom-color 0.3s ease;
+}
+body.dark-mode .nav-logout-btn:hover {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+body.dark-mode main {
+    background-color: var(--color-background);
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode footer {
+    background: var(--color-light); /* Use light dark mode color for footer */
+    color: var(--color-text-muted);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode footer a {
+    color: var(--color-primary);
+    transition: color 0.3s ease;
+}
+body.dark-mode footer a:hover {
+    color: var(--color-text);
+}
+
+/* Forms in Dark Mode */
+body.dark-mode .form-group input[type="text"],
+body.dark-mode .form-group input[type="email"],
+body.dark-mode .form-group input[type="password"],
+body.dark-mode .form-group input[type="tel"],
+body.dark-mode .form-group input[type="date"],
+body.dark-mode .form-group input[type="time"],
+body.dark-mode .form-group textarea,
+body.dark-mode .form-group select {
+    background-color: #2a2a2a; /* Slightly lighter dark for input fields */
+    color: var(--color-text);
+    border-color: #555; /* Darker border */
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out, background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus,
+body.dark-mode .form-group select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 0.2rem rgba(187, 134, 252, 0.25); /* Primary color shadow */
+}
+
+body.dark-mode .btn {
+    background: var(--color-primary);
+    color: #121212; /* Dark text on primary button */
+    box-shadow: var(--box-shadow);
+    transition: background-color 0.3s ease-in-out, transform 0.1s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .btn:hover {
+    background: var(--color-primary-dark);
+    color: var(--color-text); /* Light text on hover */
+}
+
+body.dark-mode .btn-danger {
+    background: var(--color-danger);
+    color: #121212;
+}
+body.dark-mode .btn-danger:hover {
+    background: #B00020; /* Darker red */
+    color: var(--color-text);
+}
+body.dark-mode .btn-success {
+    background: var(--color-success);
+    color: #121212;
+}
+body.dark-mode .btn-success:hover {
+    background: #008744; /* Darker green */
+    color: var(--color-text);
+}
+body.dark-mode .btn-secondary {
+    background-color: var(--color-text-muted);
+    color: #121212;
+}
+body.dark-mode .btn-secondary:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-text);
+}
+
+
+/* Alerts / Flash Messages in Dark Mode */
+body.dark-mode .alert {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+body.dark-mode .alert-success {
+    color: #C8E6C9; /* Light green text */
+    background-color: #1B5E20; /* Dark green background */
+    border-color: #388E3C; /* Green border */
+}
+body.dark-mode .alert-danger, body.dark-mode .alert-error {
+    color: #FFCDD2; /* Light red text */
+    background-color: #B71C1C; /* Dark red background */
+    border-color: #D32F2F; /* Red border */
+}
+body.dark-mode .alert-info {
+    color: #B3E5FC; /* Light blue text */
+    background-color: #0277BD; /* Dark blue background */
+    border-color: #039BE5; /* Blue border */
+}
+body.dark-mode .alert-warning {
+    color: #FFECB3; /* Light yellow text */
+    background-color: #FF6F00; /* Dark yellow background */
+    border-color: #FFA000; /* Yellow border */
+}
+
+
+/* Error Page Specifics in Dark Mode */
+body.dark-mode .error-page-container h2 {
+    color: var(--color-secondary);
+    transition: color 0.3s ease;
+}
+body.dark-mode .error-page-container pre {
+    background-color: #2a2a2a; /* Dark background for code block */
+    color: var(--color-text);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+/* Accessibility in Dark Mode */
+body.dark-mode a:focus, body.dark-mode button:focus, body.dark-mode input:focus, body.dark-mode textarea:focus, body.dark-mode select:focus, body.dark-mode summary:focus {
+    outline: 2px solid var(--color-primary); /* Use primary color for focus outline */
+    outline-offset: 2px;
+}
+body.dark-mode:not(.user-is-tabbing) a:focus,
+body.dark-mode:not(.user-is-tabbing) button:focus,
+body.dark-mode:not(.user-is-tabbing) input:focus,
+body.dark-mode:not(.user-is-tabbing) textarea:focus,
+body.dark-mode:not(.user-is-tabbing) select:focus,
+body.dark-mode:not(.user-is-tabbing) summary:focus {
+    outline: none;
+}
+
+/* Page Transition Animations */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.page-transition-exit {
+    animation: fadeOut 0.5s ease-out forwards;
+}
+
+.page-transition-enter {
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
+/* 3D Flipping Card Styles from uiverse.io */
+.parent {
+  width: 320px; /* Increased width for rectangular shape */
+  height: 280px; /* Slightly decreased height */
+  perspective: 1000px;
+}
+
+.card {
+  height: 100%;
+  border-radius: 20px; /* Reduced border radius */
+  background: linear-gradient(135deg, rgb(0, 255, 214) 0%, rgb(8, 226, 96) 100%);
+  transition: all 0.5s ease-in-out;
+  transform-style: preserve-3d;
+  box-shadow: rgba(5, 71, 17, 0) 40px 50px 25px -40px, rgba(5, 71, 17, 0.2) 0px 25px 25px -5px;
+}
+
+.glass {
+  transform-style: preserve-3d;
+  position: absolute;
+  inset: 8px;
+  border-radius: 25px; /* Reduced border radius */
+  border-top-right-radius: 100%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.349) 0%, rgba(255, 255, 255, 0.815) 100%);
+  /* -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px); */
+  transform: translate3d(0px, 0px, 25px);
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
+  transition: all 0.5s ease-in-out;
+}
+
+.content {
+  padding: 30px 30px 40px 30px; /* Added bottom padding to give space for absolute bottom */
+  transform: translate3d(0, 0, 26px);
+  overflow: hidden; /* Hide overflowing content */
+}
+
+.content .title {
+  display: block;
+  color: #00894d;
+  font-weight: 900;
+  font-size: 20px;
+  word-wrap: break-word; /* Ensure long words wrap */
+  overflow-wrap: break-word;
+}
+
+.content .text {
+  display: block;
+  color: rgba(0, 137, 78, 0.7647058824);
+  font-size: 15px;
+  margin-top: 10px; /* Reduced top margin */
+  word-wrap: break-word; /* Ensure long words wrap */
+  overflow-wrap: break-word;
+}
+
+.bottom {
+  padding: 10px 12px;
+  transform-style: preserve-3d;
+  position: absolute;
+  bottom: 20px; /* Increased bottom position */
+  left: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translate3d(0, 0, 26px);
+}
+
+.bottom .view-more {
+  display: flex;
+  align-items: center;
+  width: 40%;
+  justify-content: flex-end;
+  transition: all 0.2s ease-in-out;
+}
+
+.bottom .view-more:hover {
+  transform: translate3d(0, 0, 10px);
+}
+
+.bottom .view-more .view-more-button {
+  background: none;
+  border: none;
+  color: #00c37b;
+  font-weight: bolder;
+  font-size: 12px;
+}
+
+.bottom .view-more .svg {
+  fill: none;
+  stroke: #00c37b;
+  stroke-width: 3px;
+  max-height: 15px;
+}
+
+.bottom .social-buttons-container {
+  display: flex;
+  gap: 10px;
+  transform-style: preserve-3d;
+}
+
+.bottom .social-buttons-container .social-button {
+  width: 30px;
+  aspect-ratio: 1;
+  padding: 5px;
+  background: rgb(255, 255, 255);
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-content: center;
+  box-shadow: rgba(5, 71, 17, 0.5) 0px 7px 5px -5px;
+}
+
+.bottom .social-buttons-container .social-button:first-child {
+  transition: transform 0.2s ease-in-out 0.4s, box-shadow 0.2s ease-in-out 0.4s;
+}
+
+.bottom .social-buttons-container .social-button:nth-child(2) {
+  transition: transform 0.2s ease-in-out 0.6s, box-shadow 0.2s ease-in-out 0.6s;
+}
+
+.bottom .social-buttons-container .social-button:nth-child(3) {
+  transition: transform 0.2s ease-in-out 0.8s, box-shadow 0.2s ease-in-out 0.8s;
+}
+
+.bottom .social-buttons-container .social-button .svg {
+  width: 15px;
+  fill: #00894d;
+}
+
+.bottom .social-buttons-container .social-button:hover {
+  background: black;
+}
+
+.bottom .social-buttons-container .social-button:hover .svg {
+  fill: white;
+}
+
+.bottom .social-buttons-container .social-button:active {
+  background: rgb(255, 234, 0);
+}
+
+.bottom .social-buttons-container .social-button:active .svg {
+  fill: black;
+}
+
+.logo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform-style: preserve-3d;
+}
+
+.logo .circle {
+  display: block;
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  top: 0;
+  right: 0;
+  box-shadow: rgba(100, 100, 111, 0.2) -10px 10px 20px 0px;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  background: rgba(0, 249, 203, 0.2);
+  transition: all 0.5s ease-in-out;
+}
+
+.logo .circle1 {
+  width: 170px;
+  transform: translate3d(0, 0, 20px);
+  top: 8px;
+  right: 8px;
+}
+
+.logo .circle2 {
+  width: 140px;
+  transform: translate3d(0, 0, 40px);
+  top: 10px;
+  right: 10px;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  transition-delay: 0.4s;
+}
+
+.logo .circle3 {
+  width: 110px;
+  transform: translate3d(0, 0, 60px);
+  top: 17px;
+  right: 17px;
+  transition-delay: 0.8s;
+}
+
+.logo .circle4 {
+  width: 80px;
+  transform: translate3d(0, 0, 80px);
+  top: 23px;
+  right: 23px;
+  transition-delay: 1.2s;
+}
+
+.logo .circle5 {
+  width: 50px;
+  transform: translate3d(0, 0, 100px);
+  top: 30px;
+  right: 30px;
+  display: grid;
+  place-content: center;
+  transition-delay: 1.6s;
+}
+
+.logo .circle5 .svg {
+  width: 20px;
+  fill: white;
+}
+
+.parent:hover .card {
+  transform: rotate3d(1, 1, 0, 30deg);
+  box-shadow: rgba(5, 71, 17, 0.3) 30px 50px 25px -40px, rgba(5, 71, 17, 0.1) 0px 25px 30px 0px;
+}
+
+.parent:hover .card .bottom .social-buttons-container .social-button {
+  transform: translate3d(0, 0, 50px);
+  box-shadow: rgba(5, 71, 17, 0.2) -5px 20px 10px 0px;
+}
+
+.parent:hover .card .logo .circle2 {
+  transform: translate3d(0, 0, 60px);
+}
+
+.parent:hover .card .logo .circle3 {
+  transform: translate3d(0, 0, 80px);
+}
+
+.parent:hover .card .logo .circle4 {
+  transform: translate3d(0, 0, 100px);
+}
+
+.parent:hover .card .logo .circle5 {
+  transform: translate3d(0, 0, 120px);
+}
+
+/* Dark Mode Overrides for 3D Flipping Card */
+body.dark-mode .parent {
+    perspective: 1200px; /* Adjust perspective for dark mode if needed */
+}
+
+body.dark-mode .card {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%); /* Use dark mode primary/secondary colors */
+    box-shadow: rgba(187, 134, 252, 0.1) 40px 50px 25px -40px, rgba(187, 134, 252, 0.05) 0px 25px 25px -5px; /* Adjust shadows for dark mode */
+}
+
+body.dark-mode .glass {
+    background: linear-gradient(0deg, rgba(18, 18, 18, 0.349) 0%, rgba(18, 18, 18, 0.815) 100%); /* Darker glass background */
+    border-left: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border in dark mode */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border in dark mode */
+}
+
+body.dark-mode .content .title {
+    color: var(--color-text); /* Use dark mode text color */
+}
+
+body.dark-mode .content .text {
+    color: var(--color-text-muted); /* Use dark mode muted text color */
+}
+
+body.dark-mode .bottom .view-more .view-more-button {
+    color: var(--color-primary); /* Use dark mode primary color */
+}
+
+body.dark-mode .bottom .view-more .svg {
+    stroke: var(--color-primary); /* Use dark mode primary color */
+}
+
+body.dark-mode .bottom .social-buttons-container .social-button {
+    background: var(--color-light); /* Use dark mode light color for buttons */
+    box-shadow: rgba(187, 134, 252, 0.2) 0px 7px 5px -5px; /* Adjust shadows */
+}
+
+body.dark-mode .bottom .social-buttons-container .social-button .svg {
+    fill: var(--color-secondary); /* Use dark mode secondary color */
+}
+
+body.dark-mode .bottom .social-buttons-container .social-button:hover {
+    background: var(--color-primary); /* Use dark mode primary color on hover */
+}
+
+body.dark-mode .bottom .social-buttons-container .social-button:hover .svg {
+    fill: var(--color-light); /* Use dark mode light color on hover */
+}
+
+body.dark-mode .bottom .social-buttons-container .social-button:active {
+    background: var(--color-secondary); /* Use dark mode secondary color on active */
+}
+
+body.dark-mode .bottom .social-buttons-container .social-button:active .svg {
+    fill: var(--color-background); /* Use dark mode background color on active */
+}
+
+body.dark-mode .logo .circle {
+    box-shadow: rgba(255, 255, 255, 0.1) -10px 10px 20px 0px; /* Adjust shadows */
+    background: rgba(3, 218, 198, 0.2); /* Use dark mode secondary color with transparency */
+}
+
+body.dark-mode .logo .circle5 .svg {
+    fill: var(--color-background); /* Use dark mode background color */
+}
+
+body.dark-mode .parent:hover .card {
+    box-shadow: rgba(187, 134, 252, 0.2) 30px 50px 25px -40px, rgba(187, 134, 252, 0.05) 0px 25px 30px 0px; /* Adjust shadows */
+}
+
+body.dark-mode .parent:hover .card .bottom .social-buttons-container .social-button {
+    box-shadow: rgba(187, 134, 252, 0.1) -5px 20px 10px 0px; /* Adjust shadows */
+}
+
+/* Neon Checkbox Styles from Uiverse.io by 00Kubi */
+.neon-checkbox {
+  --primary: #00ffaa;
+  --primary-dark: #00cc88;
+  --primary-light: #88ffdd;
+  --size: 30px;
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.neon-checkbox input {
+  display: none;
+}
+
+.neon-checkbox__frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.neon-checkbox__box {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  border: 2px solid var(--primary-dark);
+  transition: all 0.4s ease;
+}
+
+.neon-checkbox__check-container {
+  position: absolute;
+  inset: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neon-checkbox__check {
+  width: 80%;
+  height: 80%;
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  position: absolute; /* Added for centering */
+  top: 10%; 
+  left: 10%; 
+  transform: translate(-50%, -50%); /* Added for centering */
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.neon-checkbox__glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: 6px;
+  background: var(--primary);
+  opacity: 0;
+  filter: blur(8px);
+  transform: scale(1.2);
+  transition: all 0.4s ease;
+}
+
+.neon-checkbox__borders {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.neon-checkbox__borders span {
+  position: absolute;
+  width: 40px;
+  height: 1px;
+  background: var(--primary);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.neon-checkbox__borders span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  animation: borderFlow1 2s linear infinite;
+}
+
+.neon-checkbox__borders span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 1px;
+  height: 40px;
+  animation: borderFlow2 2s linear infinite;
+}
+
+.neon-checkbox__borders span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  animation: borderFlow3 2s linear infinite;
+}
+
+.neon-checkbox__borders span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 1px;
+  height: 40px;
+  animation: borderFlow4 2s linear infinite;
+}
+
+.neon-checkbox__particles span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  box-shadow: 0 0 6px var(--primary);
+}
+
+.neon-checkbox__rings {
+  position: absolute;
+  inset: -20px;
+  pointer-events: none;
+}
+
+.neon-checkbox__rings .ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid var(--primary);
+  opacity: 0;
+  transform: scale(0);
+}
+
+.neon-checkbox__sparks span {
+  position: absolute;
+  width: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--primary), transparent);
+  opacity: 0;
+}
+
+/* Hover Effects */
+.neon-checkbox:hover .neon-checkbox__box {
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+/* Checked State */
+.neon-checkbox input:checked ~ .neon-checkbox__frame .neon-checkbox__box {
+  border-color: var(--primary);
+  background: rgba(0, 255, 170, 0.1);
+}
+
+.neon-checkbox input:checked ~ .neon-checkbox__frame .neon-checkbox__check {
+  stroke-dashoffset: 0;
+  transform: scale(1.1);
+}
+
+.neon-checkbox input:checked ~ .neon-checkbox__frame .neon-checkbox__glow {
+  opacity: 0.2;
+}
+
+.neon-checkbox
+  input:checked
+  ~ .neon-checkbox__frame
+  .neon-checkbox__borders
+  span {
+  opacity: 1;
+}
+
+/* Particle Animations */
+.neon-checkbox
+  input:checked
+  ~ .neon-checkbox__frame
+  .neon-checkbox__particles
+  span {
+  animation: particleExplosion 0.6s ease-out forwards;
+}
+
+.neon-checkbox
+  input:checked
+  ~ .neon-checkbox__frame
+  .neon-checkbox__rings
+  .ring {
+  animation: ringPulse 0.6s ease-out forwards;
+}
+
+.neon-checkbox
+  input:checked
+  ~ .neon-checkbox__frame
+  .neon-checkbox__sparks
+  span {
+  animation: sparkFlash 0.6s ease-out forwards;
+}
+
+/* Animations */
+@keyframes borderFlow1 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes borderFlow2 {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+@keyframes borderFlow3 {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-200%);
+  }
+}
+
+@keyframes borderFlow4 {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-200%);
+  }
+}
+
+@keyframes particleExplosion {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(
+        calc(-50% + var(--x, 20px)),
+        calc(-50% + var(--y, 20px))
+      )
+      scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes ringPulse {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes sparkFlash {
+  0% {
+    transform: rotate(var(--r, 0deg)) translateX(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--r, 0deg)) translateX(30px) scale(0);
+    opacity: 0;
+  }
+}
+
+/* Particle Positions */
+.neon-checkbox__particles span:nth-child(1) {
+  --x: 25px;
+  --y: -25px;
+}
+.neon-checkbox__particles span:nth-child(2) {
+  --x: -25px;
+  --y: -25px;
+}
+.neon-checkbox__particles span:nth-child(3) {
+  --x: 25px;
+  --y: 25px;
+}
+.neon-checkbox__particles span:nth-child(4) {
+  --x: -25px;
+  --y: 25px;
+}
+.neon-checkbox__particles span:nth-child(5) {
+  --x: 35px;
+  --y: 0px;
+}
+.neon-checkbox__particles span:nth-child(6) {
+  --x: -35px;
+  --y: 0px;
+}
+.neon-checkbox__particles span:nth-child(7) {
+  --x: 0px;
+  --y: 35px;
+}
+.neon-checkbox__particles span:nth-child(8) {
+  --x: 0px;
+  --y: -35px;
+}
+.neon-checkbox__particles span:nth-child(9) {
+  --x: 20px;
+  --y: -30px;
+}
+.neon-checkbox__particles span:nth-child(10) {
+  --x: -20px;
+  --y: 30px;
+}
+.neon-checkbox__particles span:nth-child(11) {
+  --x: 30px;
+  --y: 20px;
+}
+.neon-checkbox__particles span:nth-child(12) {
+  --x: -30px;
+  --y: -20px;
+}
+
+/* Spark Rotations */
+.neon-checkbox__sparks span:nth-child(1) {
+  --r: 0deg;
+  top: 50%;
+  left: 50%;
+}
+.neon-checkbox__sparks span:nth-child(2) {
+  --r: 90deg;
+  top: 50%;
+  left: 50%;
+}
+.neon-checkbox__sparks span:nth-child(3) {
+  --r: 180deg;
+  top: 50%;
+  left: 50%;
+}
+.neon-checkbox__sparks span:nth-child(4) {
+  --r: 270deg;
+  top: 50%;
+  left: 50%;
+}
+
+/* Ring Delays */
+.neon-checkbox__rings .ring:nth-child(1) {
+  animation-delay: 0s;
+}
+.neon-checkbox__rings .ring:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.neon-checkbox__rings .ring:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+/* Style for Mobile Service Available text in Card */
+.parent .card .bottom .service-meta p:last-child {
+    font-size: 0.75em; /* Make text smaller */
+    text-align: right; /* Align text to the right */
+    width: 100%; /* Ensure it takes full width to align right */
+    margin-top: 5px; /* Add a little space above it */
+}
+
+
+/* Styles from motor-vehicle-maintenance-website integration */
+.parent .card .bottom .service-meta p:last-child {
+    font-size: 0.75em; /* Make text smaller */
+    text-align: right; /* Align text to the right */
+    width: 100%; /* Ensure it takes full width to align right */
+    margin-top: 5px; /* Add a little space above it */
+}
+
+
+/* Styles from motor-vehicle-maintenance-website integration */
+
+/* Hero Section (for homepage) */
+#hero {
+    min-height: 400px; /* Increased height for a larger hero section */
+    background: url('/images/hero-image.jpg') no-repeat center center/cover; /* Set hero image as background */
+    text-align: center;
+    color: #fff; /* White text for readability */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px; /* Increased padding */
+    position: relative; /* Needed for overlay */
+}
+
+#hero::before { /* Add an overlay for better text readability */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent dark overlay */
+    z-index: 1;
+}
+
+#hero > * { /* Ensure content is above the overlay */
+    position: relative;
+    z-index: 2;
+}
+
+
+#hero h2 {
+    font-size: 3.5em; /* Larger font size for heading */
+    margin-bottom: 20px; /* More space below heading */
+    color: #fff;
+    font-family: var(--font-secondary);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Add text shadow */
+}
+
+#hero p {
+    font-size: 1.5em; /* Larger font size for paragraph */
+    margin-bottom: 30px; /* More space before button */
+    max-width: 700px; /* Increased max width */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Add text shadow */
+}
+
+#hero .btn { /* Style the button in the hero section */
+    font-size: 1.2em; /* Larger button text */
+    padding: 0.8rem 1.6rem; /* Adjusted padding */
+}
+
+/* General Main Section Styling */
+main > section { 
+    padding: 25px 0; /* Increased padding within sections */
+    margin-bottom: 25px;
+    border-bottom: 1px solid #dee2e6; /* Softer border */
+}
+
+main > section:last-child {
+    border-bottom: none;
+}
+
+/* Contact Page Info/Map Styles (for potential use) */
+.contact-methods { /* Style for current contact.ejs structure */
+    margin-top: 20px;
+}
+.contact-method {
+    background-color: #2e2e2e;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.contact-method h3 {
+    margin-top: 0;
+    color: var(--color-secondary); /* Use theme color */
+}
+
+.contact-info-map-wrapper { 
+    display: grid;
+    grid-template-columns: 1fr; /* Default to stacked */
+    gap: 30px;
+    margin-top: 20px;
+}
+@media (min-width: 768px) { /* Side-by-side on larger screens */
+    .contact-info-map-wrapper {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+
+.contact-info h3 { 
+    margin-top: 20px;
+    color: var(--color-secondary); /* Use theme color */
+}
+
+#map-container iframe { 
+    border-radius: var(--border-radius);
+    width: 100%; 
+    min-height: 300px;
+    border: 1px solid #ddd; /* Add a light border to map */
+}
+
+/* Homepage specific styles for featured services */
+.services-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Explicitly set 3 columns */
+    gap: 20px;
+}
+.service-preview-card {
+    background-color: var(--color-light);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    position: relative; /* Needed for absolute positioning of potential overlay */
+    overflow: hidden; /* Hide parts of the image that scale out */
+    min-height: 250px; /* Fixed height for even look */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex; /* Use flexbox to center content vertically */
+    flex-direction: column;
+    justify-content: flex-end; /* Align content to the bottom */
+    align-items: center; /* Center content horizontally */
+    color: #fff; /* White text for readability on background image */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Add text shadow for readability */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
+    padding: 20px; /* Add padding inside the card */
+}
+
+.service-preview-card::before { /* Optional overlay for better text readability */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Darker overlay for better contrast */
+    z-index: 1; /* Place overlay above background image */
+}
+
+.service-preview-card > * { /* Ensure content is above the overlay */
+    position: relative;
+    z-index: 2;
+    text-align: center; /* Center text within the flex item */
+    width: 100%; /* Allow content to take full width */
+}
+
+.service-preview-card h3, .service-preview-card h4 { /* h3 from old, h4 from new */
+    color: #ffc107; /* Yellow color for headings */
+    margin-bottom: 10px;
+    font-size: 1.8rem; /* Larger font size for headings */
+}
+.service-preview-card p {
+    color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for paragraphs */
+    font-size: 1rem; /* Adjusted font size */
+    margin-bottom: 15px;
+}
+
+.service-preview-card .btn { /* Style buttons on the card */
+    margin-top: 10px;
+    background-color: rgba(0, 123, 255, 0.9); /* Slightly more opaque primary color */
+    border: 1px solid #fff; /* White border for contrast */
+    color: #fff;
+    padding: 0.5rem 0rem; /* Adjusted padding */
+    font-size: 0.9rem; /* Adjusted font size */
+}
+.service-preview-card .btn:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary-dark);
+}
+
+
+.service-preview-card:hover {
+    transform: scale(1.03); /* Slightly enlarge the card on hover */
+    box-shadow: var(--box-shadow-lg); /* More prominent shadow on hover */
+}
+.service-preview-card:hover::before {
+    background: rgba(0, 0, 0, 0.5); /* Slightly darker overlay on hover */
+}
+
+.featured-services-button-container {
+    margin-top: 30px; /* Add space above the button */
+    display: block; /* Ensure it's a block element */
+    width: 100%; /* Ensure it takes full width */
+}

@@ -1,0 +1,33 @@
+<section id="service-detail-page">
+    <% if (service) { %>
+        <h2><%= service.name %></h2>
+        <div class="service-detail-content">
+            <p><strong>Category:</strong> <%= service.category || 'N/A' %></p>
+            <p><strong>Description:</strong> <%= service.description %></p>
+            <p><strong>Price:</strong> ₹<%= service.price.toFixed(2) %></p>
+            <p><strong>Estimated Time:</strong> <%= service.estimated_time_minutes ? service.estimated_time_minutes + ' minutes' : 'N/A' %></p>
+            <% if (service.is_mobile_service_option) { %>
+                <p><em>This service is available for mobile booking.</em></p>
+            <% } %>
+
+            <div class="actions" style="margin-top: 20px;">
+                <a href="/bookings/new?selected_services=<%= service.id %>" class="btn btn-primary">Book This Service</a>
+                <a href="/services" class="btn btn-secondary" style="margin-left: 10px;">Back to All Services</a>
+            </div>
+        </div>
+    <% } else { %>
+        <h2>Service Not Found</h2>
+        <p>The service you are looking for does not exist or is currently unavailable.</p>
+        <a href="/services" class="btn">View All Services</a>
+    <% } %>
+</section>
+
+<style>
+    .service-detail-content p {
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+    .service-detail-content strong {
+        color: #333;
+    }
+</style>

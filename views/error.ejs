@@ -1,0 +1,13 @@
+<div class="error-page-container">
+    <h2>Oops! Something went wrong.</h2>
+    <% if (error && error.status) { %>
+        <p><strong>Status:</strong> <%= error.status %></p>
+    <% } %>
+    <p><strong>Message:</strong> <%= error && error.message ? error.message : 'An unexpected error occurred on the server.' %></p>
+    
+    <% if (process.env.NODE_ENV !== 'production' && error && error.stack) { %>
+        <h3>Stack Trace (Development Mode):</h3>
+        <pre><%= error.stack %></pre>
+    <% } %>
+    <a href="/" class="btn">Go to Homepage</a>
+</div>

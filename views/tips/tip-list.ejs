@@ -1,0 +1,125 @@
+<section id="maintenance-tips-page">
+    <h2>Vehicle Maintenance Tips</h2>
+    <p>Empower yourself with knowledge! Here are some useful tips to help you understand and maintain your vehicle better.</p>
+
+    <% if (!tips || tips.length === 0) { %>
+        <p>No maintenance tips are currently available. Please check back later.</p>
+    <% } else { %>
+        <div class="tips-container">
+            <% tips.forEach(tip => { %>
+                <details class="tip-item">
+                    <summary><%= tip.title %></summary>
+                    <div class="tip-content">
+                        <% const paragraphs = tip.content.split('\\n').filter(p => p.trim() !== ''); %>
+                        <% paragraphs.forEach(paraText => { %>
+                            <p><%= paraText %></p>
+                        <% }); %>
+                        <p class="tip-meta"><em>Added: <%= new Date(tip.created_at).toLocaleDateString() %></em></p>
+                    </div>
+                </details>
+            <% }); %>
+        </div>
+    <% } %>
+</section>
+
+<style>
+    #maintenance-tips-page h2 {
+        margin-bottom: 15px;
+    }
+    #maintenance-tips-page > p { /* The introductory paragraph */
+        font-size: 1.1rem;
+        color: var(--color-text-muted);
+        margin-bottom: 30px;
+    }
+    .tips-container {
+        margin-top: 20px;
+    }
+    .tip-item {
+        background: var(--color-background);
+        margin-bottom: 15px; /* Increased spacing */
+        border: 1px solid #dee2e6; /* Softer border */
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        transition: box-shadow 0.2s ease-in-out;
+    }
+    .tip-item:hover {
+        box-shadow: var(--box-shadow-lg);
+    }
+    .tip-item summary {
+        padding: 15px 20px; /* Adjusted padding */
+        font-weight: 600; /* From Open Sans */
+        font-size: 1.15rem; /* Slightly larger */
+        font-family: var(--font-secondary);
+        color: var(--color-primary);
+        cursor: pointer;
+        background-color: var(--color-light);
+        border-bottom: 1px solid transparent; /* Remove bottom border when closed initially */
+        list-style-position: inside; /* Keeps marker aligned */
+        transition: background-color 0.2s ease;
+        border-radius: var(--border-radius) var(--border-radius) 0 0; /* Rounded top corners */
+    }
+    .tip-item summary:hover {
+        background-color: #b974ff; /* Slightly darker on hover */
+    }
+    .tip-item[open] summary {
+        background-color: var(--color-primary);
+        color: #fff;
+        border-bottom: 1px solid var(--color-primary-dark);
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+    .tip-content {
+        padding: 20px; /* Increased padding */
+        border-top: 1px solid #dee2e6; 
+        background-color: #fff; /* Ensure content area is white */
+        border-radius: 0 0 var(--border-radius) var(--border-radius); /* Rounded bottom corners */
+    }
+    .tip-content p {
+        margin-bottom: 12px; /* Increased paragraph spacing */
+        line-height: 1.7; /* Improved line height for readability */
+    }
+    .tip-meta {
+        font-size: 0.85em;
+        color: var(--color-text-muted);
+        margin-top: 20px; /* More space above meta */
+        text-align: right;
+    }
+    /* Dark Mode Overrides for Tip List */
+    body.dark-mode #maintenance-tips-page > p {
+        color: var(--color-text-muted); /* Ensure muted text color is appropriate in dark mode */
+    }
+
+    body.dark-mode .tip-item {
+        background: var(--color-section-bg); /* Use section background color */
+        border: 1px solid #333; /* Darker border */
+        box-shadow: var(--box-shadow);
+        transition: box-shadow 0.2s ease-in-out, background 0.3s ease, border-color 0.3s ease;
+    }
+    body.dark-mode .tip-item:hover {
+        box-shadow: var(--box-shadow-lg);
+    }
+    body.dark-mode .tip-item summary {
+        color: var(--color-primary);
+        background-color: #2a2a2a; /* Darker background for summary */
+        border-bottom: 1px solid transparent;
+        transition: background-color 0.2s ease, color 0.3s ease;
+    }
+    body.dark-mode .tip-item summary:hover {
+        background-color: #333; /* Slightly darker on hover */
+    }
+    body.dark-mode .tip-item[open] summary {
+        background-color: var(--color-primary);
+        color: #121212; /* Dark text on primary background */
+        border-bottom: 1px solid var(--color-primary-dark);
+    }
+    body.dark-mode .tip-content {
+        border-top: 1px solid #333; /* Darker border */
+        background-color: var(--color-background); /* Use background color for content */
+        transition: background-color 0.3s ease, border-top-color 0.3s ease;
+    }
+    body.dark-mode .tip-content p {
+        color: var(--color-text); /* Use main text color */
+    }
+    body.dark-mode .tip-meta {
+        color: var(--color-text-muted); /* Ensure muted text color is appropriate */
+    }
+</style>

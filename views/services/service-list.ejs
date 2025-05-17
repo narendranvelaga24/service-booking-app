@@ -1,0 +1,156 @@
+<section id="services-listing-page">
+    <h2>Our Services</h2>
+    <p>Browse our comprehensive list of automotive services. Select one or more services to proceed with booking.</p>
+
+    <% if (Object.keys(servicesByCategory).length === 0) { %>
+        <p>No services are currently available. Please check back later.</p>
+    <% } else { %>
+        <form action="/bookings/new" method="GET" id="selectServicesForm"> <!-- Or POST to a cart handler -->
+            <% Object.keys(servicesByCategory).sort().forEach(category => { %>
+                <div class="service-category">
+                    <h3><%= category %></h3>
+                    <div class="services-grid">
+                        <% servicesByCategory[category].forEach(service => { %>
+                            <article class="service-card" id="service-<%= service.id %>">
+                                <div class="service-card-header">
+                                    <h4><%= service.name %></h4>
+                                    <input type="checkbox" name="selected_services" value="<%= service.id %>" class="service-checkbox" aria-labelledby="service-name-<%= service.id %>">
+                                </div>
+                                <p id="service-name-<%= service.id %>" class="sr-only"><%= service.name %></p> <!-- For ARIA -->
+                                <p class="service-description"><%= service.description %></p>
+                                <div class="service-meta">
+                                    <p><strong>Price:</strong> ₹<%= service.price.toFixed(2) %></p>
+                                    <p><strong>Time:</strong> <%= service.estimated_time_minutes ? service.estimated_time_minutes + ' mins' : 'N/A' %></p>
+                                    <% if (service.is_mobile_service_option) { %>
+                                        <p><small><em>Mobile service available</em></small></p>
+                                    <% } %>
+                                </div>
+                                <!-- Link to individual service page (optional) -->
+                                <!-- <a href="/services/<%= service.id %>" class="btn-small">Details</a> -->
+                            </article>
+                        <% }); %>
+                    </div>
+                </div>
+            <% }); %>
+            <div class="form-actions" style="margin-top: 20px; text-align: center;">
+                <button type="submit" class="btn btn-primary btn-large" id="proceedToBookingBtn">Proceed to Booking</button>
+            </div>
+        </form>
+    <% } %>
+</section>
+
+<style>
+    .service-category h3 {
+        font-family: var(--font-secondary);
+        color: var(--color-secondary);
+        border-bottom: 2px solid var(--color-primary);
+        padding-bottom: 8px;
+        margin-top: 40px; /* More space between categories */
+        margin-bottom: 20px;
+        font-size: 1.6rem;
+    }
+    .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Slightly larger min size */
+        gap: 25px; /* Increased gap */
+        margin-bottom: 30px;
+    }
+    .service-card {
+        background-color: var(--color-background); /* Use theme background */
+        border: 1px solid #dee2e6; /* Softer border */
+        padding: 20px; /* Increased padding */
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--box-shadow-lg);
+    }
+    .service-card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px; /* Increased margin */
+    }
+    .service-card h4 {
+        margin: 0;
+        font-size: 1.25rem; /* Slightly larger */
+        font-family: var(--font-secondary);
+        color: var(--color-primary);
+    }
+    .service-checkbox { /* Style the checkbox for better visibility */
+        transform: scale(1.3);
+        margin-left: 10px;
+        cursor: pointer;
+    }
+    .service-description {
+        flex-grow: 1;
+        font-size: 0.95rem;
+        color: var(--color-text-muted);
+        margin-bottom: 12px;
+    }
+    .service-meta p {
+        margin: 6px 0;
+        font-size: 0.9rem;
+        color: var(--color-text);
+    }
+    .service-meta strong {
+        color: var(--color-secondary);
+    }
+    .service-meta em { /* For mobile service available text */
+        color: var(--color-success);
+        font-weight: 600;
+    }
+    .form-actions { /* For the proceed button container */
+        padding: 20px 0;
+        border-top: 1px solid #dee2e6;
+        margin-top: 10px;
+    }
+    #proceedToBookingBtn { /* Style the main CTA button */
+        font-size: 1.1rem;
+        padding: 0.8rem 2rem;
+    }
+    #proceedToBookingBtn:disabled {
+        background-color: rgb(255, 255, 255);
+        cursor: pointer;
+        transform: none; /* No hover effect when disabled */
+        box-shadow: none;
+    }
+    .sr-only { 
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+    }
+</style>
+
+<script>
+    // Basic JS to enable/disable proceed button based on selection
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = document.querySelectorAll('.service-checkbox');
+        const proceedButton = document.getElementById('proceedToBookingBtn');
+
+        function toggleProceedButton() {
+            const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+            proceedButton.disabled = !anyChecked;
+            if (anyChecked) {
+                proceedButton.style.opacity = '1';
+                proceedButton.style.cursor = 'pointer';
+            } else {
+                proceedButton.style.opacity = '0.5';
+                proceedButton.style.cursor = 'not-allowed';
+            }
+        }
+
+        checkboxes.forEach(cb => cb.addEventListener('change', toggleProceedButton));
+        toggleProceedButton(); // Initial state
+    });
+</script>
