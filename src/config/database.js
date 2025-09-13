@@ -3,7 +3,14 @@ const path = require('path');
 const fs = require('fs');
 
 const DB_NAME = process.env.NODE_ENV === 'test' ? 'test.db' : 'main.db';
-const DB_PATH = path.join(__dirname, '..', '..', 'database', DB_NAME);
+
+// Use Railway volume path in production, local path in development
+const DB_DIR = process.env.RAILWAY_VOLUME_MOUNT_PATH 
+    ? path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'database')
+    : path.join(__dirname, '..', '..', 'database');
+
+const DB_PATH = path.join(DB_DIR, DB_NAME);
+// const DB_PATH = path.join(__dirname, '..', '..', 'database', DB_NAME);
 const SCHEMA_PATH = path.join(__dirname, '..', '..', 'database', 'schema.sql');
 const DATA_PATH = path.join(__dirname, '..', '..', 'database', 'data.sql');
 
@@ -11,12 +18,18 @@ let db;
 
 function connect() {
     return new Promise((resolve, reject) => {
+        // Ensure database directory exists (important for Railway volumes)
+        if (!fs.existsSync(DB_DIR)) {
+            fs.mkdirSync(DB_DIR, { recursive: true });
+            console.log(`Created database directory: ${DB_DIR}`);
+        }
+
         db = new sqlite3.Database(DB_PATH, (err) => {
             if (err) {
                 console.error(`Error connecting to the SQLite database (${DB_NAME}).`, err.message);
                 return reject(err);
             }
-            console.log(`Connected to the SQLite database (${DB_NAME}).`);
+            console.log(`Connected to the SQLite database (${DB_NAME}) at ${DB_PATH}`);
             // Enable foreign key support
             db.run("PRAGMA foreign_keys = ON;", (pragmaErr) => {
                 if (pragmaErr) {
