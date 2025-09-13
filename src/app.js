@@ -26,10 +26,16 @@ app.use(express.urlencoded({ extended: true })); // For parsing application/x-ww
 app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve static files
 
 // Session setup
+const sessionDir = process.env.RAILWAY_VOLUME_MOUNT_PATH 
+    ? path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'database')
+    : require('fs').existsSync('/app/data') // Check if Railway volume exists
+    ? path.join('/app/data', 'database')
+    : path.join(__dirname, '..', 'database');
+
 app.use(session({
     store: new SQLiteStore({
         db: 'sessions.db', // Database file for sessions
-        dir: path.join(__dirname, '..', 'database'), // Directory to store sessions.db
+        dir: sessionDir, // Use the same persistent directory as main database
         table: 'sessions'
     }),
     secret: process.env.SESSION_SECRET || 'your_very_secret_key_here_change_it', // Change this in .env
