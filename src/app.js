@@ -14,7 +14,7 @@ const tipRoutes = require('./routes/tipRoutes'); // Import tip routes
 const viewRoutes = require('./routes/viewRoutes'); // For general page views like home
 
 const app = express();
-const PORT = process.env.PORT || 3001; // Use a different port than the previous project
+const PORT = process.env.PORT || 8080; // Use a different port than the previous project
 
 // View engine setup
 app.set('views', path.join(__dirname, '..', 'views'));

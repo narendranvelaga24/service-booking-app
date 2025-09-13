@@ -86,10 +86,10 @@ service-booking-app/
     ```bash
     node src/app.js
     ```
-    The server will start, typically on `http://localhost:3001` (or the port specified in `.env`). The console will output the exact URL. The SQLite database (`main.db` and `sessions.db`) and its tables will be automatically created and populated with sample data on the first run.
+    The server will start, typically on `http://localhost:8080` (or the port specified in `.env`). The console will output the exact URL. The SQLite database (`main.db` and `sessions.db`) and its tables will be automatically created and populated with sample data on the first run.
 
 5.  **Access the application:**
-    Open your web browser and navigate to `http://localhost:3001`.
+    Open your web browser and navigate to `http://localhost:8080`.
 
 ## Key Routes
 
