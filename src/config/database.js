@@ -7,6 +7,8 @@ const DB_NAME = process.env.NODE_ENV === 'test' ? 'test.db' : 'main.db';
 // Use Railway volume path in production, local path in development
 const DB_DIR = process.env.RAILWAY_VOLUME_MOUNT_PATH 
     ? path.join(process.env.RAILWAY_VOLUME_MOUNT_PATH, 'database')
+    : fs.existsSync('/app/data') // Check if Railway volume exists
+    ? path.join('/app/data', 'database')
     : path.join(__dirname, '..', '..', 'database');
 
 const DB_PATH = path.join(DB_DIR, DB_NAME);
