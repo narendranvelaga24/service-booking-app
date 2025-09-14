@@ -7,3 +7,6 @@ startCommand = "npm start"
 [[deploy.volumes]]
 mountPath = "/app/data"
 name = "database_volume"
+
+[build.env]
+NPM_CONFIG_PRODUCTION = "true"

@@ -21,9 +21,14 @@ let db;
 function connect() {
     return new Promise((resolve, reject) => {
         // Ensure database directory exists (important for Railway volumes)
-        if (!fs.existsSync(DB_DIR)) {
-            fs.mkdirSync(DB_DIR, { recursive: true });
-            console.log(`Created database directory: ${DB_DIR}`);
+        try {
+            if (!fs.existsSync(DB_DIR)) {
+                fs.mkdirSync(DB_DIR, { recursive: true });
+                console.log(`Created database directory: ${DB_DIR}`);
+            }
+        } catch (dirError) {
+            console.error('Error creating database directory:', dirError.message);
+            return reject(dirError);
         }
 
         db = new sqlite3.Database(DB_PATH, (err) => {
