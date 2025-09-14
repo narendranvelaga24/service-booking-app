@@ -75,20 +75,29 @@ exports.getLoginPage = (req, res) => {
 
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
+    console.log('Login attempt for:', email); // Debug log
+    
     if (!email || !password) {
+        console.log('Missing email or password'); // Debug log
         setFlashMessage(req, 'error', 'Email and password are required.');
         return res.redirect('/auth/login');
     }
 
     try {
         const user = await UserModel.findByEmail(email);
+        console.log('User found:', user ? 'Yes' : 'No'); // Debug log
+        
         if (!user) {
+            console.log('User not found for email:', email); // Debug log
             setFlashMessage(req, 'error', 'Invalid email or password.');
             return res.redirect('/auth/login');
         }
 
         const isMatch = await UserModel.comparePassword(password, user.password_hash);
+        console.log('Password match:', isMatch); // Debug log
+        
         if (!isMatch) {
+            console.log('Password does not match for:', email); // Debug log
             setFlashMessage(req, 'error', 'Invalid email or password.');
             return res.redirect('/auth/login');
         }
@@ -108,6 +117,7 @@ exports.loginUser = async (req, res) => {
         };
         req.session.isAuthenticated = true;
 
+        console.log('Login successful for:', email); // Debug log
         setFlashMessage(req, 'success', 'Logged in successfully!');
         res.redirect('/user/profile'); // Or to a dashboard page
 

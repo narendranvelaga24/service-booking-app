@@ -1,10 +1,22 @@
 <section id="login-page">
     <h2>Login to Your Account</h2>
 
+    <!-- Display flash messages from session -->
+    <% if (typeof flashMessages !== 'undefined' && flashMessages) { %>
+        <% Object.keys(flashMessages).forEach(type => { %>
+            <% flashMessages[type].forEach(message => { %>
+                <div class="alert alert-<%= type %>" style="margin-bottom: 15px; padding: 10px; border: 1px solid; border-radius: 4px;">
+                    <%= message %>
+                </div>
+            <% }); %>
+        <% }); %>
+    <% } %>
+
+    <!-- Display page messages (for logout, etc.) -->
     <% if (typeof pageMessages !== 'undefined' && pageMessages) { %>
         <% Object.keys(pageMessages).forEach(type => { %>
             <% pageMessages[type].forEach(message => { %>
-                <div class="alert alert-<%= type %>" style="margin-bottom: 15px;">
+                <div class="alert alert-<%= type %>" style="margin-bottom: 15px; padding: 10px; border: 1px solid; border-radius: 4px;">
                     <%= message %>
                 </div>
             <% }); %>
